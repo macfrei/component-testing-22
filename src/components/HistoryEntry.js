@@ -17,6 +17,9 @@ export default function HistoryEntry({ nameOfGame, players }) {
 const Wrapper = styled.section`
   display: grid;
   gap: 10px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  padding: 8px;
 `;
 
 const Player = styled.div`

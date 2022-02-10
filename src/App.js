@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components/macro';
 import GameForm from './components/GameForm';
-import HistoryEntry from './components/HistoryEntry';
 import Navigation from './components/Navigation';
 import GamePage from './pages/GamePage';
+import HistoryPage from './pages/HistoryPage';
 
 export default function App() {
   const [players, setPlayers] = useState([]);
@@ -27,14 +27,7 @@ export default function App() {
         />
       )}
 
-      {currentPage === 'history' && (
-        <HistoryWrapper>
-          <h2>Previous Games</h2>
-          {history.map(({ nameOfGame, players, id }) => (
-            <HistoryEntry key={id} nameOfGame={nameOfGame} players={players} />
-          ))}
-        </HistoryWrapper>
-      )}
+      {currentPage === 'history' && <HistoryPage history={history} />}
 
       {(currentPage === 'play' || currentPage === 'history') && (
         <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
@@ -82,9 +75,4 @@ const AppLayout = styled.div`
   display: grid;
   gap: 20px;
   padding: 20px;
-`;
-
-const HistoryWrapper = styled.div`
-  display: grid;
-  gap: 28px;
 `;
