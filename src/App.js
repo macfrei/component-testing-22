@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import styled from 'styled-components/macro';
-import Button from './components/Button';
 import GameForm from './components/GameForm';
 import HistoryEntry from './components/HistoryEntry';
 import Navigation from './components/Navigation';
-import Player from './components/Player';
+import GamePage from './pages/GamePage';
 
 export default function App() {
   const [players, setPlayers] = useState([]);
@@ -14,32 +13,23 @@ export default function App() {
 
   return (
     <AppLayout>
-      {/* conditional rendering */}
-      {currentPage === 'play' && (
-        <div>
-          <GameForm onCreateGame={createGame} />
-        </div>
-      )}
+      <h1>Scorekeeper</h1>
+      {currentPage === 'play' && <GameForm onCreateGame={createGame} />}
 
       {currentPage === 'game' && (
-        <div>
-          <header>{nameOfGame}</header>
-          {players.map(({ name, score }, index) => (
-            <Player
-              key={name}
-              name={name}
-              score={score}
-              onPlus={() => handlePlus(index)}
-              onMinus={() => handleMinus(index)}
-            />
-          ))}
-          <Button onClick={resetScores}>Reset scores</Button>
-          <Button onClick={endGame}>End game</Button>
-        </div>
+        <GamePage
+          nameOfGame={nameOfGame}
+          players={players}
+          onResetScores={resetScores}
+          onEndGame={endGame}
+          onMinus={handleMinus}
+          onPlus={handlePlus}
+        />
       )}
 
       {currentPage === 'history' && (
         <HistoryWrapper>
+          <h2>Previous Games</h2>
           {history.map(({ nameOfGame, players, id }) => (
             <HistoryEntry key={id} nameOfGame={nameOfGame} players={players} />
           ))}
@@ -53,7 +43,6 @@ export default function App() {
   );
 
   function createGame({ nameOfGame, playerNames }) {
-    // playerNames is ['Jane', 'John']
     setNameOfGame(nameOfGame);
     setPlayers(playerNames.map(name => ({ name, score: 0 })));
     setCurrentPage('game');
