@@ -12,7 +12,7 @@ export default function GameForm({ onCreateGame }) {
   const [formData, setFormData] = useState(initialFormData);
 
   return (
-    <FormGrid
+    <Form
       aria-labelledby="formHeader"
       onSubmit={handleSubmit}
       autoComplete="off"
@@ -21,7 +21,7 @@ export default function GameForm({ onCreateGame }) {
       <Input
         name="nameOfGame"
         labelText="Name of game"
-        placeholder="e.g. Carcassonne"
+        placeholder="e.g. Dodelido"
         onChange={handleChange}
         value={formData.nameOfGame}
         required
@@ -35,7 +35,7 @@ export default function GameForm({ onCreateGame }) {
         required
       />
       <Button>Create game</Button>
-    </FormGrid>
+    </Form>
   );
 
   function handleChange(event) {
@@ -54,7 +54,7 @@ export default function GameForm({ onCreateGame }) {
   }
 }
 
-const FormGrid = styled.form`
+const Form = styled.form`
   display: grid;
   gap: 10px;
 `;

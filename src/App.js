@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 import GameForm from './components/GameForm';
 import Navigation from './components/Navigation';
 import GamePage from './pages/GamePage';
@@ -23,8 +23,8 @@ export default function App() {
           players={players}
           onResetScores={resetScores}
           onEndGame={endGame}
-          onMinus={handleMinus}
-          onPlus={handlePlus}
+          onDecreasePlayerScore={decreasePlayerScore}
+          onIncreasePlayerScore={increasePlayerScore}
         />
       )}
 
@@ -38,7 +38,7 @@ export default function App() {
 
   function createGame({ nameOfGame, playerNames }) {
     setNameOfGame(nameOfGame);
-    setPlayers(playerNames.map(name => ({ name, score: 0 })));
+    setPlayers(playerNames.map(name => ({ name, score: 0, id: nanoid() })));
     setCurrentPage('game');
   }
 
@@ -53,7 +53,7 @@ export default function App() {
     setPlayers(players.map(player => ({ ...player, score: 0 })));
   }
 
-  function handlePlus(index) {
+  function increasePlayerScore(index) {
     const currentPlayer = players[index];
     setPlayers([
       ...players.slice(0, index),
@@ -62,7 +62,7 @@ export default function App() {
     ]);
   }
 
-  function handleMinus(index) {
+  function decreasePlayerScore(index) {
     const currentPlayer = players[index];
     setPlayers([
       ...players.slice(0, index),

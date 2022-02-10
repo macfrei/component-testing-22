@@ -6,8 +6,8 @@ export default function GamePage({
   players,
   onResetScores,
   onEndGame,
-  onMinus,
-  onPlus,
+  onDecreasePlayerScore,
+  onIncreasePlayerScore,
 }) {
   return (
     <>
@@ -15,13 +15,13 @@ export default function GamePage({
         <h2>{nameOfGame}</h2>
         <p>Successfully created a new game!</p>
       </header>
-      {players.map(({ name, score }, index) => (
+      {players.map(({ name, score, id }, index) => (
         <Player
-          key={name}
+          key={id}
           name={name}
           score={score}
-          onPlus={() => onPlus(index)}
-          onMinus={() => onMinus(index)}
+          onIncreasePlayerScore={() => onIncreasePlayerScore(index)}
+          onDecreasePlayerScore={() => onDecreasePlayerScore(index)}
         />
       ))}
       <Button onClick={onResetScores}>Reset scores</Button>

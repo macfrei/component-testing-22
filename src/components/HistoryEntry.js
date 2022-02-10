@@ -3,11 +3,11 @@ import styled from 'styled-components';
 export default function HistoryEntry({ nameOfGame, players }) {
   return (
     <Wrapper>
-      {nameOfGame}
-      {players.map((player, index) => (
-        <Player key={index}>
-          <span>{player.name}</span>
-          <span>{player.score}</span>
+      <GameTitle>{nameOfGame}</GameTitle>
+      {players.map(({ name, score, id }) => (
+        <Player key={id}>
+          <span>{name}</span>
+          <span>{score}</span>
         </Player>
       ))}
     </Wrapper>
@@ -25,4 +25,9 @@ const Wrapper = styled.section`
 const Player = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const GameTitle = styled.span`
+  text-transform: uppercase;
+  font-weight: lighter;
 `;
