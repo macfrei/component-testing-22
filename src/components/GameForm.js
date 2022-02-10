@@ -1,35 +1,54 @@
 import Button from './Button';
 import Input from './Input';
 import styled from 'styled-components';
+import { useState } from 'react';
+
+const initialFormData = {
+  nameOfGame: '',
+  playerNames: '',
+};
 
 export default function GameForm({ onCreateGame }) {
+  const [formData, setFormData] = useState(initialFormData);
+
   return (
-    <FormGrid onSubmit={handleSubmit}>
+    <FormGrid
+      aria-labelledby="formHeader"
+      onSubmit={handleSubmit}
+      autoComplete="off"
+    >
+      <h2 id="formHeader">Create a new game</h2>
       <Input
         name="nameOfGame"
         labelText="Name of game"
         placeholder="e.g. Carcassonne"
+        onChange={handleChange}
+        value={formData.nameOfGame}
       />
       <Input
         name="playerNames"
         labelText="Player names"
         placeholder="e.g. John Doe, Jane Doe"
+        onChange={handleChange}
+        value={formData.playerNames}
       />
       <Button>Create game</Button>
     </FormGrid>
   );
 
+  function handleChange(event) {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
-    const form = event.target;
-    const { nameOfGame, playerNames } = form.elements;
 
     onCreateGame({
-      nameOfGame: nameOfGame.value,
-      playerNames: playerNames.value.split(',').map(name => name.trim()),
+      nameOfGame: formData.nameOfGame,
+      playerNames: formData.playerNames.split(',').map(name => name.trim()),
     });
-    form.reset();
-    nameOfGame.focus();
+    setFormData(initialFormData);
   }
 }
 

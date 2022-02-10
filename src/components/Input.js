@@ -1,18 +1,26 @@
 import styled from 'styled-components';
 
-export default function Input({ labelText, placeholder, name }) {
+export default function Input({
+  labelText,
+  placeholder,
+  name,
+  value,
+  onChange,
+}) {
   return (
-    <Label>
-      {labelText}
-      <InputStyled name={name} placeholder={placeholder} type="text" />
-    </Label>
+    <>
+      <label htmlFor={name}>{labelText}</label>
+      <InputStyled
+        id={name}
+        name={name}
+        placeholder={placeholder}
+        type="text"
+        value={value}
+        onChange={onChange}
+      />
+    </>
   );
 }
-
-const Label = styled.label`
-  display: grid;
-  gap: 4px;
-`;
 
 const InputStyled = styled.input`
   border: 2px solid #bbb;
