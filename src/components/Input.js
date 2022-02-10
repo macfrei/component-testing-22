@@ -6,6 +6,7 @@ export default function Input({
   name,
   value,
   onChange,
+  required,
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ export default function Input({
         type="text"
         value={value}
         onChange={onChange}
+        required={required}
       />
     </>
   );

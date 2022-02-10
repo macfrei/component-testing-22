@@ -24,6 +24,7 @@ export default function GameForm({ onCreateGame }) {
         placeholder="e.g. Carcassonne"
         onChange={handleChange}
         value={formData.nameOfGame}
+        required
       />
       <Input
         name="playerNames"
@@ -31,6 +32,7 @@ export default function GameForm({ onCreateGame }) {
         placeholder="e.g. John Doe, Jane Doe"
         onChange={handleChange}
         value={formData.playerNames}
+        required
       />
       <Button>Create game</Button>
     </FormGrid>
