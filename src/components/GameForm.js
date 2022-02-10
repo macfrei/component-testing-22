@@ -27,7 +27,7 @@ export default function GameForm({ onCreateGame }) {
       />
       <Input
         name="playerNames"
-        labelText="Player names"
+        labelText="Player names, seperated by comma"
         placeholder="e.g. John Doe, Jane Doe"
         onChange={handleChange}
         value={formData.playerNames}
