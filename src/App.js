@@ -4,6 +4,7 @@ import GameForm from './components/GameForm';
 import Navigation from './components/Navigation';
 import GamePage from './pages/GamePage';
 import HistoryPage from './pages/HistoryPage';
+import { nanoid } from 'nanoid';
 
 export default function App() {
   const [players, setPlayers] = useState([]);
@@ -42,7 +43,7 @@ export default function App() {
   }
 
   function endGame() {
-    setHistory([{ players, nameOfGame, id: 'foo' }, ...history]);
+    setHistory([{ players, nameOfGame, id: nanoid() }, ...history]);
     setPlayers([]);
     setNameOfGame('');
     setCurrentPage('play');
