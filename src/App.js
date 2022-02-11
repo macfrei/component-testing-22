@@ -5,12 +5,7 @@ import Navigation from './components/Navigation';
 import GamePage from './pages/GamePage';
 import HistoryPage from './pages/HistoryPage';
 import { nanoid } from 'nanoid';
-
-const PAGES = {
-  PLAY: 'play',
-  GAME: 'game',
-  HISTORY: 'history',
-};
+import PAGES from './assets/pages';
 
 export default function App() {
   const [players, setPlayers] = useState([]);
