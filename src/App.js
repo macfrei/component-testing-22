@@ -6,18 +6,24 @@ import GamePage from './pages/GamePage';
 import HistoryPage from './pages/HistoryPage';
 import { nanoid } from 'nanoid';
 
+const PAGES = {
+  PLAY: 'play',
+  GAME: 'game',
+  HISTORY: 'history',
+};
+
 export default function App() {
   const [players, setPlayers] = useState([]);
   const [nameOfGame, setNameOfGame] = useState('');
-  const [currentPage, setCurrentPage] = useState('play');
+  const [currentPage, setCurrentPage] = useState(PAGES.PLAY);
   const [history, setHistory] = useState([]);
 
   return (
     <AppLayout>
       <h1>Scorekeeper</h1>
-      {currentPage === 'play' && <GameForm onCreateGame={createGame} />}
+      {currentPage === PAGES.PLAY && <GameForm onCreateGame={createGame} />}
 
-      {currentPage === 'game' && (
+      {currentPage === PAGES.GAME && (
         <GamePage
           nameOfGame={nameOfGame}
           players={players}
@@ -28,9 +34,9 @@ export default function App() {
         />
       )}
 
-      {currentPage === 'history' && <HistoryPage history={history} />}
+      {currentPage === PAGES.HISTORY && <HistoryPage history={history} />}
 
-      {(currentPage === 'play' || currentPage === 'history') && (
+      {(currentPage === PAGES.PLAY || currentPage === PAGES.HISTORY) && (
         <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
       )}
     </AppLayout>
@@ -39,14 +45,14 @@ export default function App() {
   function createGame({ nameOfGame, playerNames }) {
     setNameOfGame(nameOfGame);
     setPlayers(playerNames.map(name => ({ name, score: 0, id: nanoid() })));
-    setCurrentPage('game');
+    setCurrentPage(PAGES.GAME);
   }
 
   function endGame() {
     setHistory([{ players, nameOfGame, id: nanoid() }, ...history]);
     setPlayers([]);
     setNameOfGame('');
-    setCurrentPage('play');
+    setCurrentPage(PAGES.PLAY);
   }
 
   function resetScores() {
