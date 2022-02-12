@@ -19,9 +19,13 @@ export default function Player({
     <PlayerWrapper>
       {name}
       <PlayerScore color={color}>
-        <Button onClick={onDecreasePlayerScore}>-</Button>
+        <Button aria-label="Decrease Score" onClick={onDecreasePlayerScore}>
+          -
+        </Button>
         <span>{score}</span>
-        <Button onClick={onIncreasePlayerScore}>+</Button>
+        <Button aria-label="Increase Score" onClick={onIncreasePlayerScore}>
+          +
+        </Button>
       </PlayerScore>
     </PlayerWrapper>
   );
