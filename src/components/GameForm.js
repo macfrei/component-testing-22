@@ -11,6 +11,8 @@ const initialFormData = {
 export default function GameForm({ onCreateGame }) {
   const [formData, setFormData] = useState(initialFormData);
 
+  const disabled = formData.nameOfGame === '' || formData.playerNames === '';
+
   return (
     <Form
       aria-labelledby="formHeader"
@@ -34,7 +36,7 @@ export default function GameForm({ onCreateGame }) {
         value={formData.playerNames}
         required
       />
-      <Button>Create game</Button>
+      <Button disabled={disabled}>Create game</Button>
     </Form>
   );
 

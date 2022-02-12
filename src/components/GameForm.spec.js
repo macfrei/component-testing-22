@@ -23,7 +23,7 @@ describe('GameForm', () => {
     expect(form).toBeInTheDocument();
   });
 
-  it('submits form data', () => {
+  it('submits form data when every field is filled out', () => {
     const handleCreate = jest.fn();
     render(<GameForm onCreateGame={handleCreate} />);
 
@@ -39,5 +39,18 @@ describe('GameForm', () => {
       nameOfGame: 'Dodelido',
       playerNames: ['Jane', 'John'],
     });
+  });
+
+  it('does not submit form if one input field is left empty', () => {
+    const handleCreate = jest.fn();
+    render(<GameForm onCreateGame={handleCreate} />);
+
+    const nameOfGameInput = screen.getByLabelText(/name of game/i);
+    const submitButton = screen.getByRole('button', { name: /create/i });
+
+    userEvent.type(nameOfGameInput, 'Dodelido');
+    userEvent.click(submitButton);
+
+    expect(handleCreate).not.toHaveBeenCalled();
   });
 });
