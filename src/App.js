@@ -1,53 +1,51 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import GameForm from './components/GameForm';
-import Navigation from './components/Navigation';
 import GamePage from './pages/GamePage';
 import HistoryPage from './pages/HistoryPage';
 import { nanoid } from 'nanoid';
-import PAGES from './assets/pages';
+import { Route, Routes, useNavigate } from 'react-router-dom';
+import HomePage from './pages/HomePage';
 
 export default function App() {
   const [players, setPlayers] = useState([]);
   const [nameOfGame, setNameOfGame] = useState('');
-  const [currentPage, setCurrentPage] = useState(PAGES.PLAY);
   const [history, setHistory] = useState([]);
+  const navigate = useNavigate();
 
   return (
     <AppLayout>
       <h1>Scorekeeper</h1>
-      {currentPage === PAGES.PLAY && <GameForm onCreateGame={createGame} />}
-
-      {currentPage === PAGES.GAME && (
-        <GamePage
-          nameOfGame={nameOfGame}
-          players={players}
-          onResetScores={resetScores}
-          onEndGame={endGame}
-          onDecreasePlayerScore={decreasePlayerScore}
-          onIncreasePlayerScore={increasePlayerScore}
+      <Routes>
+        <Route path="/" element={<HomePage onCreateGame={createGame} />} />
+        <Route
+          path="/game"
+          element={
+            <GamePage
+              nameOfGame={nameOfGame}
+              players={players}
+              onResetScores={resetScores}
+              onEndGame={endGame}
+              onDecreasePlayerScore={decreasePlayerScore}
+              onIncreasePlayerScore={increasePlayerScore}
+            />
+          }
         />
-      )}
-
-      {currentPage === PAGES.HISTORY && <HistoryPage history={history} />}
-
-      {(currentPage === PAGES.PLAY || currentPage === PAGES.HISTORY) && (
-        <Navigation currentPage={currentPage} onNavigate={setCurrentPage} />
-      )}
+        <Route path="/history" element={<HistoryPage history={history} />} />
+      </Routes>
     </AppLayout>
   );
 
   function createGame({ nameOfGame, playerNames }) {
     setNameOfGame(nameOfGame);
     setPlayers(playerNames.map(name => ({ name, score: 0, id: nanoid() })));
-    setCurrentPage(PAGES.GAME);
+    navigate('/game');
   }
 
   function endGame() {
     setHistory([{ players, nameOfGame, id: nanoid() }, ...history]);
     setPlayers([]);
     setNameOfGame('');
-    setCurrentPage(PAGES.PLAY);
+    navigate('/');
   }
 
   function resetScores() {
