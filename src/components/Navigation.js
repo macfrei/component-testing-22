@@ -1,23 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from './Button';
-import PAGES from '../assets/pages';
+import { Link } from 'react-router-dom';
 
-export default function Navigation({ onNavigate, currentPage }) {
+export default function Navigation() {
   return (
     <Nav>
-      <Button
-        isActive={currentPage === PAGES.PLAY}
-        onClick={() => onNavigate(PAGES.PLAY)}
-      >
-        Play
-      </Button>
-      <Button
-        isActive={currentPage === PAGES.HISTORY}
-        onClick={() => onNavigate(PAGES.HISTORY)}
-      >
-        History
-      </Button>
+      <Link to="/play">Play</Link>
+      <Link to="/history">History</Link>
     </Nav>
   );
 }
