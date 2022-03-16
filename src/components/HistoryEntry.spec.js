@@ -32,8 +32,17 @@ describe('HistoryEntry', () => {
       />
     );
 
-    const button = screen.getByRole('button', { name: /show score/i });
+    const noPlayer1 = screen.queryByText(/john/i);
+    const noPlayer2 = screen.queryByText(/jane/i);
+    const noPlayerScore1 = screen.queryByText(/2/i);
+    const noPlayerScore2 = screen.queryByText(/1/i);
 
+    expect(noPlayer1).not.toBeInTheDocument();
+    expect(noPlayer2).not.toBeInTheDocument();
+    expect(noPlayerScore1).not.toBeInTheDocument();
+    expect(noPlayerScore2).not.toBeInTheDocument();
+
+    const button = screen.getByRole('button', { name: /show score/i });
     userEvent.click(button);
 
     const player1 = screen.getByText(/john/i);
